@@ -1,3 +1,7 @@
-<p>
-  member-detail works!
-</p>
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+<div class="member-container" *ngIf="!loading">
+   <member-header [member]="member"></member-header>
+   <br />
+   <br />
+   <member-attendence [member]="member"></member-attendence>
+</div>

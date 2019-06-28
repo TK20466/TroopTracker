@@ -1,0 +1,12 @@
+.header-card-image {
+  background-size: cover;
+}
+.md-user-avatar {
+   border-radius: 0;
+   height: 150px;
+   width: 150px;
+   object-fit: scale-down;
+}
+.pull-right {
+  margin-left: auto;
+}

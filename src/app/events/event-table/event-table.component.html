@@ -1,0 +1,33 @@
+<div class="mat-elevation-z8">
+   <mat-form-field>
+     <input matInput [(ngModel)]="filter" (ngModelChange)="applyFilter(filter)" placeholder="Filter">
+     <button mat-button *ngIf="filter" matSuffix mat-icon-button aria-label="Clear" (click)="filter='';applyFilter(filter)">
+    <mat-icon>close</mat-icon>
+  </button>
+   </mat-form-field>
+   <div class="table-container">
+  <table mat-table class="full-width-table" [dataSource]="data" matSort aria-label="Events">
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Event Title</th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-button color="primary" routerLink="/event/{{row.id}}">{{row.title}}</button>
+    </ng-container>
+
+     <ng-container matColumnDef="startDate">
+       <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
+       <td mat-cell *matCellDef="let row">{{row.startDate | date:'MM/dd/yyyy'}}</td>
+     </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+
+  <mat-paginator #paginator
+      [length]="resultsLength"
+      [pageIndex]="0"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions">
+  </mat-paginator>
+</div>

@@ -1,19 +1,19 @@
 import { Component, OnInit, ViewChild, EventEmitter } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
-import { MemberService } from "../member.service";
-import { MemberSimple, PagedAPI } from "../../api.models";
+import { EventService } from "../event.service";
+import { EventSimple, PagedAPI } from "../../api.models";
 import {merge, Observable, of as observableOf, Subject} from 'rxjs';
 import {catchError, map, startWith, switchMap, debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-member-table',
-  templateUrl: './member-table.component.html',
-  styleUrls: ['./member-table.component.css'],
+  selector: 'app-event-table',
+  templateUrl: './Event-table.component.html',
+  styleUrls: ['./Event-table.component.css'],
 })
-export class MemberTableComponent implements OnInit {
+export class EventTableComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  data: MemberSimple[] = [];
+  data: EventSimple[] = [];
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
@@ -24,9 +24,9 @@ export class MemberTableComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'forumHandle', 'legionId'];
+  displayedColumns = ['title', 'startDate'];
 
-  constructor(private memberService: MemberService) {
+  constructor(private EventService: EventService) {
      this.filterChanged
      .pipe(
         debounceTime(500),
@@ -69,6 +69,6 @@ public applyFilter(value: string) {
 
 private getPagedData(sort: string, order: string, page: number, pageSize: number, filter: string) {
 
-  return this.memberService.Search(pageSize, page, sort, order, filter);
+  return this.EventService.Search(pageSize, page, sort, order, filter, false);
 }
 }
